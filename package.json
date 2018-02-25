@@ -2,16 +2,18 @@
   "name": "backbone",
   "private": true,
   "scripts": {
-    "build": "NODE_ENV=development webpack",
-    "build:dev": "NODE_ENV=development webpack",
-    "start": "NODE_ENV=production webpack-dev-server --content-base public --port 8800"
+    "build": "NODE_ENV=production webpack",
+    "build:dev": "NODE_ENV=development webpack"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^6.3.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.22.0",
     "babel-register": "^6.23.0",
     "copy-webpack-plugin": "^4.0.1",
@@ -26,7 +28,10 @@
   },
   "dependencies": {
     "backbone": "^1.3.3",
+    "backbone.layoutmanager": "^1.0.0",
     "jquery": "^3.3.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "underscore": "^1.8.3"
   }
 }

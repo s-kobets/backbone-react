@@ -1,6 +1,8 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 import Backbone from 'backbone';
-import $ from 'jquery';
-import _ from 'underscore';
+import reactToBackbone from './reactToBackbone';
 
 import '../css/main.css';
 
@@ -39,10 +41,30 @@ const MyFamily = new Family([
 
 const appState = new AppState();
 
+const View = reactToBackbone(<div>1234</div>);
+
+const BlockReact = Backbone.View.extend({
+  el: $('#react'),
+  initialize: function() {
+    this.render();
+  },
+
+  render: function() {
+    console.log(new View());
+    $(this.el).append(
+      ReactDOM.render(React.createElement('div', this.options, '1234'), this.el)
+    );
+    return this;
+  }
+});
+
+new BlockReact({ model: appState });
+
 const Block = Backbone.View.extend({
   el: $('#block'),
   templates: {
     // Шаблоны на разное состояние
+    // start: _.template(new View()),
     start: _.template($('#start').html()),
     success: _.template($('#success').html()),
     error: _.template($('#error').html())
@@ -67,13 +89,13 @@ const Block = Backbone.View.extend({
   },
   render: function() {
     const state = this.model.get('state');
-
     $(this.el).html(this.templates[state](this.model.toJSON()));
     return this;
   }
 });
 
 const block = new Block({ model: appState });
+
 appState.trigger('change');
 
 const Controller = Backbone.Router.extend({

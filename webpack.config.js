@@ -1,12 +1,17 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const underscore = require('underscore');
 
 // Default plugins
 const plugins = [
   new ExtractTextPlugin({
     filename: 'main.css',
     allChunks: true
+  }),
+  new webpack.ProvidePlugin({
+    $: 'jquery',
+    _: 'underscore'
   })
 ];
 
@@ -24,6 +29,7 @@ module.exports = {
       // JS
       {
         test: /\.js$/,
+        exclude: /node_modules/,
         loader: 'babel-loader'
       },
       // CSS
